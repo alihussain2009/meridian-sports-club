@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join &amp; Contact — Meridian Athletic Club</title>
+<meta name="description" content="Become a member of Meridian Athletic Club — view membership plans, apply online, or get in touch.">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <!-- <img src="images/logo.png" alt="Meridian Athletic Club logo" class="brand-mark"> -->
+      <span class="brand-text">Ali - Meridian<span>ATHLETIC CLUB &middot; EST. 2005</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="sports.html">Sports</a>
+      <a href="matches.html">Matches &amp; News</a>
+      <a href="join.html">Join / Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="join.html" class="btn btn-primary btn-sm">Join the Club</a>
+      <button class="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <img src="images/hero-join.jpg" alt="Meridian Athletic Club clubhouse"class="hero-bg-image">
+  <div class="hero-overlay"></div>
+  <div class="wrap">
+    <div class="breadcrumb">Home / Join &amp; Contact</div>
+    <h1>Your membership starts here.</h1>
+    <p class="lead">Choose a plan, tell us which sport you want to train in, complete payment, and our team will set up your first session.</p>
+  </div>
+</section>
+
+<!-- ================= MEMBERSHIP PLANS ================= -->
+<section class="section-tight">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Membership</div>
+      <h2 class="mt-1">Plans for every level</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card plan-card reveal">
+        <h3>Junior</h3>
+        <p style="font-size:0.88rem;">Ages 8&ndash;15 &middot; One sport</p>
+        <div class="price">&#8377;1,200<span>/month</span></div>
+        <ul>
+          <li>Access to one sport's junior programme</li>
+          <li>2 coached sessions per week</li>
+          <li>Entry into junior club tournaments</li>
+          <li>Club kit welcome pack</li>
+        </ul>
+        <!-- data-plan tells script.js which option to pre-select in the join form below -->
+        <button type="button" class="btn btn-ghost btn-sm btn-block" data-plan="junior">Choose Junior</button>
+      </div>
+      <div class="card plan-card featured reveal">
+        <span class="badge">Most Popular</span>
+        <h3>Standard</h3>
+        <p style="font-size:0.88rem;">Adults &middot; One sport</p>
+        <div class="price">&#8377;2,000<span>/month</span></div>
+        <ul>
+          <li>Full access to one sport's training programme</li>
+          <li>Unlimited coached sessions that week</li>
+          <li>Eligible for club team selection</li>
+          <li>Access to strength &amp; conditioning room</li>
+        </ul>
+        <button type="button" class="btn btn-primary btn-sm btn-block" data-plan="standard">Choose Standard</button>
+      </div>
+      <div class="card plan-card reveal">
+        <h3>All-Access</h3>
+        <p style="font-size:0.88rem;">Adults &middot; All six sports</p>
+        <div class="price">&#8377;3,200<span>/month</span></div>
+        <ul>
+          <li>Train across all six sports</li>
+          <li>Priority booking for courts &amp; nets</li>
+          <li>Free entry to the annual club championships</li>
+          <li>Guest passes for 2 sessions per month</li>
+        </ul>
+        <button type="button" class="btn btn-ghost btn-sm btn-block" data-plan="all-access">Choose All-Access</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= JOIN FORM + PAYMENT ================= -->
+<section class="section-dim" id="join">
+  <div class="wrap grid grid-2" style="gap:3.5rem; align-items:flex-start;">
+    <div class="reveal">
+      <div class="eyebrow">Application</div>
+      <h2 class="mt-1">Apply for membership</h2>
+      <p class="mt-1">Fill in your details and pick a plan. When you click Submit, a payment window will open where you can pay by UPI, card, or net banking.</p>
+
+      <form id="join-form" novalidate>
+
+        <div class="form-grid mt-2">
+          <div class="field full">
+            <label for="full-name">Full name <span class="req">*</span></label>
+            <input type="text" id="full-name" name="full-name" placeholder="Your full name">
+            <span class="error-msg"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email address <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="you@example.com">
+            <span class="error-msg"></span>
+          </div>
+          <div class="field">
+            <label for="phone">Phone number <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210">
+            <span class="error-msg"></span>
+          </div>
+          <div class="field">
+            <label for="sport-interest">Sport of interest <span class="req">*</span></label>
+            <select id="sport-interest" name="sport-interest">
+              <option value="">Select a sport</option>
+              <option value="cricket">Cricket</option>
+              <option value="football">Football</option>
+              <option value="basketball">Basketball</option>
+              <option value="badminton">Badminton</option>
+              <option value="golf">Golf</option>
+              <option value="cycling">Cycling</option>
+            </select>
+            <span class="error-msg"></span>
+          </div>
+          <div class="field">
+            <label for="membership-plan">Membership plan <span class="req">*</span></label>
+            <select id="membership-plan" name="membership-plan">
+              <option value="">Select a plan</option>
+              <option value="junior">Junior &mdash; &#8377;1,200/month</option>
+              <option value="standard">Standard &mdash; &#8377;2,000/month</option>
+              <option value="all-access">All-Access &mdash; &#8377;3,200/month</option>
+            </select>
+            <span class="error-msg"></span>
+          </div>
+          <div class="field full">
+            <label for="message">Anything we should know? (optional)</label>
+            <textarea id="message" name="message" placeholder="Previous experience, preferred timings, etc."></textarea>
+          </div>
+          <div class="field full" style="flex-direction:row; align-items:flex-start; gap:0.6rem;">
+            <input type="checkbox" id="agree-terms" name="agree-terms" style="width:auto; margin-top:0.2rem;">
+            <label for="agree-terms" style="font-weight:500;">I agree to the club's membership terms and code of conduct <span class="req">*</span></label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-2" id="join-submit-btn">Submit Application</button>
+        <p class="form-note">Fields marked <span class="req">*</span> are required. We'll never share your details with third parties.</p>
+        <div class="form-success" id="join-success"></div>
+      </form>
+    </div>
+
+    <!-- =========================================================
+         PAYMENT POPUP
+         Hidden by default (no "show" class). script.js adds the
+         "show" class once the application form above passes
+         validation, and removes it when the popup is closed.
+         ========================================================= -->
+    <div class="modal-overlay" id="payment-modal">
+      <div class="modal-box">
+        <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close">&times;</button>
+
+        <!-- Step A: choose a payment method and pay -->
+        <div id="payment-step">
+          <h3>Complete Payment</h3>
+          <div class="modal-amount"><span id="modal-amount-value">&#8377;0</span><span> / month</span></div>
+
+          <div class="pay-method-tabs">
+            <button type="button" class="pay-method-btn active" data-method="upi">UPI</button>
+            <button type="button" class="pay-method-btn" data-method="card">Credit / Debit Card</button>
+            <button type="button" class="pay-method-btn" data-method="netbanking">Net Banking</button>
+          </div>
+
+          <div class="pay-method-panel active" id="method-upi">
+            <div class="field">
+              <label for="upi-id">UPI ID <span class="req">*</span></label>
+              <input type="text" id="upi-id" placeholder="yourname@upi">
+              <span class="error-msg"></span>
+            </div>
+          </div>
+
+          <div class="pay-method-panel" id="method-card">
+            <div class="field">
+              <label for="card-name">Name on card <span class="req">*</span></label>
+              <input type="text" id="card-name" placeholder="As printed on your card">
+              <span class="error-msg"></span>
+            </div>
+            <div class="field">
+              <label for="card-number">Card number <span class="req">*</span></label>
+              <input type="text" id="card-number" placeholder="1234 5678 9012 3456" maxlength="19">
+              <span class="error-msg"></span>
+            </div>
+            <div class="form-grid">
+              <div class="field">
+                <label for="card-expiry">Expiry (MM/YY) <span class="req">*</span></label>
+                <input type="text" id="card-expiry" placeholder="MM/YY" maxlength="5">
+                <span class="error-msg"></span>
+              </div>
+              <div class="field">
+                <label for="card-cvv">CVV <span class="req">*</span></label>
+                <input type="text" id="card-cvv" placeholder="123" maxlength="3">
+                <span class="error-msg"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pay-method-panel" id="method-netbanking">
+            <div class="field">
+              <label for="bank-select">Select your bank <span class="req">*</span></label>
+              <select id="bank-select">
+                <option value="">Choose a bank</option>
+                <option value="State Bank of India">State Bank of India</option>
+                <option value="HDFC Bank">HDFC Bank</option>
+                <option value="ICICI Bank">ICICI Bank</option>
+                <option value="Axis Bank">Axis Bank</option>
+              </select>
+              <span class="error-msg"></span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-primary btn-block mt-2" id="pay-now-btn">Pay Now</button>
+          <p class="payment-note">This is a demo payment step for a college project &mdash; no real transaction takes place and no details are stored or sent anywhere.</p>
+        </div>
+
+        <!-- Step B: receipt, shown after "Pay Now" succeeds -->
+        <div id="receipt-step" style="display:none;">
+          <h3>Payment Successful</h3>
+          <p style="font-size:0.88rem; margin-top:0.3rem;">Your membership application is confirmed. A copy of this receipt is below.</p>
+
+          <div class="receipt-box" id="receipt-content"><!-- filled in by script.js --></div>
+
+          <button type="button" class="btn btn-primary btn-block mt-1" id="download-receipt-btn">Download Receipt</button>
+          <button type="button" class="btn btn-ghost btn-block mt-1" id="receipt-close-btn">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="card" style="padding:1.8rem;">
+        <h4>What happens next?</h4>
+        <p class="mt-1" style="font-size:0.9rem;">1. Submit your application and payment &nbsp;&rarr;&nbsp; 2. Our team calls to confirm your plan &nbsp;&rarr;&nbsp; 3. Meet your coach for a trial session &nbsp;&rarr;&nbsp; 4. Start training.</p>
+      </div>
+      <div class="card mt-2" style="padding:1.8rem;">
+        <h4>Prefer to visit in person?</h4>
+        <p class="mt-1" style="font-size:0.9rem;">Drop by the Meridian clubhouse any weekday between 4:00 PM and 7:00 PM to speak with our membership desk directly &mdash; no appointment needed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="section-dark" id="contact">
+  <div class="wrap grid grid-2" style="gap:3.5rem;">
+    <div class="reveal">
+      <div class="eyebrow">Get In Touch</div>
+      <h2 class="mt-1">Contact information</h2>
+
+      <div class="contact-item">
+        <!-- <img src="images/icons/location.png" alt="Location icon"> -->
+        <div>
+          <h4>Clubhouse Address</h4>
+          <p>aAli - Meridian Athletic Club, Bypass Road, Near GPCET, Kurnool, Andhra Pradesh 518452</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <!-- <img src="images/icons/phone.png" alt="Phone icon"> -->
+        <div>
+          <h4>Phone</h4>
+          <p>+91 88888 22334</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <!-- <img src="images/icons/email.png" alt="Email icon"> -->
+        <div>
+          <h4>Email</h4>
+          <p>meridianathleticclub876@gmail.com</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <!-- <img src="images/icons/clock.png" alt="Clock icon"> -->
+        <div>
+          <h4>Clubhouse Hours</h4>
+          <p>Mon&ndash;Sat: 6:00 AM &ndash; 9:00 PM &nbsp;&middot;&nbsp; Sun: 6:00 AM &ndash; 1:00 PM</p>
+        </div>
+      </div>
+
+      <div class="social-row">
+             <a href="#" aria-label="Instagram">
+            <img src="images/insta.png" alt="Instagram">
+          </a>
+          <a href="#" aria-label="Facebook">
+            <img src="images/facebook.png" alt="Facebook">
+          </a>
+          <a href="#" aria-label="YouTube">
+            <img src="images/youtube.png" alt="YouTube">
+          </a>
+          <a href="#" aria-label="X (Twitter)">
+            <img src="images/twitter.png" alt="X (Twitter)">
+          </a>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <h3 style="color:#F6F4EF;">Send us a message</h3>
+      <form id="contact-form" class="mt-2" novalidate>
+        <div class="form-grid">
+          <div class="field full">
+            <label for="c-name" style="color:#F6F4EF;">Name <span class="req">*</span></label>
+            <input type="text" id="c-name" name="c-name" placeholder="Your name">
+            <span class="error-msg"></span>
+          </div>
+          <div class="field full">
+            <label for="c-email" style="color:#F6F4EF;">Email <span class="req">*</span></label>
+            <input type="email" id="c-email" name="c-email" placeholder="you@example.com">
+            <span class="error-msg"></span>
+          </div>
+          <div class="field full">
+            <label for="c-message" style="color:#F6F4EF;">Message <span class="req">*</span></label>
+            <textarea id="c-message" name="c-message" placeholder="How can we help?"></textarea>
+            <span class="error-msg"></span>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-1">Send Message</button>
+        <div class="form-success" id="contact-success"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <!-- <img src="images/logo.png" alt="Meridian Athletic Club logo" class="brand-mark" width="34" height="34"> -->
+        <div>
+          <span class="brand-text">Ali - Meridian Athletic Club</span>
+          <div class="footer-tagline">SIX SPORTS. ONE STANDARD.</div>
+        </div>
+      </div>
+      <ul class="footer-links">
+        <li><a href="about.html">About</a></li>
+        <li><a href="sports.html">Sports</a></li>
+        <li><a href="matches.html">Fixtures</a></li>
+        <li><a href="join.html">Membership</a></li>
+        <li><a href="join.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; <span id="current-year"></span> Ali - Meridian Athletic Club. All rights reserved.</p>
+      <div class="social-row">
+        <a href="#" aria-label="Instagram">
+            <img src="images/insta.png" alt="Instagram">
+          </a>
+          <a href="#" aria-label="Facebook">
+            <img src="images/facebook.png" alt="Facebook">
+          </a>
+          <a href="#" aria-label="YouTube">
+            <img src="images/youtube.png" alt="YouTube">
+          </a>
+          <a href="#" aria-label="X (Twitter)">
+            <img src="images/twitter.png" alt="X (Twitter)">
+          </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>

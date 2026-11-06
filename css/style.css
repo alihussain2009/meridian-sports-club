@@ -1,0 +1,790 @@
+/* ==========================================================================
+   MERIDIAN ATHLETIC CLUB — GLOBAL STYLESHEET
+   ==========================================================================
+   HOW THIS FILE IS ORGANISED (read top to bottom):
+   1. Basic reset            -> removes default browser spacing
+   2. Typography              -> headings, paragraphs, labels
+   3. Layout helpers          -> .wrap, .grid, section spacing
+   4. Buttons
+   5. Navbar
+   6. Page hero banner (with image)
+   7. Scoreboard stat strip
+   8. Ticker (scrolling announcement bar)
+   9. Cards (sport cards, person cards, facility cards, etc.)
+   10. Tables (player statistics)
+   11. Tabs & filters
+   12. Fixture / match cards
+   13. News cards
+   14. Gallery
+   15. Forms (join form + contact form)
+   16. Membership plan cards
+   17. Payment popup + receipt
+   18. Contact section
+   19. Footer
+
+   NOTE ON COLOURS: this file writes out each colour value directly
+   wherever it's used (e.g. #0E1B2C for the dark navy) instead of using
+   CSS variables, so every rule can be read on its own. If you want to
+   re-theme the site, use your editor's Find & Replace on these codes:
+     #0E1B2C  = dark navy      #C9A227 = gold
+     #F6F4EF  = light paper    #2F5D3A = green accent
+     #A62639  = red accent
+   ========================================================================== */
+
+/* ---------- 1. Reset ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #F6F4EF;
+  color: #0E1B2C;
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; font-size: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid #C9A227;
+  outline-offset: 3px;
+}
+
+/* ---------- 2. Typography ---------- */
+h1, h2, h3, h4 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #0E1B2C;
+}
+
+h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); }
+h3 { font-size: clamp(1.25rem, 2vw, 1.55rem); }
+h4 { font-size: 1.1rem; }
+
+p { color: rgba(14, 27, 44, 0.72); }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A227;
+  font-weight: 700;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: #C9A227;
+}
+
+.section-head { max-width: 640px; margin-bottom: 3rem; }
+.section-head p { margin-top: 1rem; font-size: 1.05rem; }
+.section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
+
+/* ---------- 3. Layout helpers ---------- */
+.wrap { max-width: 1220px; margin: 0 auto; padding: 0 2rem; }
+
+section { padding: 6rem 0; }
+.section-tight { padding: 4rem 0; }
+.section-dark { background: #0E1B2C; color: #F6F4EF; }
+.section-dark h1, .section-dark h2, .section-dark h3, .section-dark h4 { color: #F6F4EF; }
+.section-dark p { color: rgba(246, 244, 239, 0.68); }
+.section-dim { background: #EAE6DB; }
+
+.grid { display: grid; gap: 1.75rem; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 980px) {
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  section { padding: 4rem 0; }
+}
+
+.mt-1 { margin-top: 1rem; } .mt-2 { margin-top: 2rem; } .mt-3 { margin-top: 3rem; }
+.flex { display: flex; align-items: center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.gap-1 { gap: 1rem; } .gap-2 { gap: 2rem; }
+.text-center { text-align: center; }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ---------- 4. Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.9rem 1.8rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1), background 0.3s cubic-bezier(0.22, 1, 0.36, 1), color .3s cubic-bezier(0.22, 1, 0.36, 1);
+  white-space: nowrap;
+}
+
+.btn-primary { background: #C9A227; color: #0E1B2C; box-shadow: 0 10px 24px rgba(201, 162, 39, 0.32); }
+.btn-primary:hover { background: #E4C55D; transform: translateY(-2px); }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.btn-ghost { background: transparent; color: inherit; border: 1px solid currentColor; }
+.btn-ghost:hover { background: #0E1B2C; color: #F6F4EF; border-color: #0E1B2C; transform: translateY(-2px); }
+.section-dark .btn-ghost:hover { background: #F6F4EF; color: #0E1B2C; border-color: #F6F4EF; }
+
+.btn-sm { padding: 0.6rem 1.3rem; font-size: 0.82rem; }
+.btn-block { width: 100%; justify-content: center; }
+
+/* ---------- 5. Navbar ---------- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  background: #0E1B2C;
+  border-bottom: 1px solid rgba(246, 244, 239, 0.16);
+}
+
+.navbar .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; }
+
+.brand { display: flex; align-items: center; gap: 0.7rem; color: #F6F4EF; }
+
+/* This <img> is the club logo. Put your logo file at images/logo.png */
+.brand-mark { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+
+.brand-text { font-family: Georgia, 'Times New Roman', serif; font-weight: 700; font-size: 1.15rem; line-height: 1.1; }
+.brand-text span {
+  display: block;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  color: #C9A227;
+  margin-top: 3px;
+  font-weight: 400;
+}
+
+.nav-links { display: flex; align-items: center; gap: 2.2rem; }
+.nav-links a {
+  color: rgba(246, 244, 239, 0.78);
+  font-size: 0.92rem;
+  font-weight: 600;
+  position: relative;
+  padding: 0.3rem 0;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 2px; background: #C9A227;
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-links a:hover, .nav-links a.active { color: #F6F4EF; }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+.nav-cta { display: flex; align-items: center; gap: 1.2rem; }
+
+/* Hamburger icon for mobile menu — built with plain CSS, no image needed */
+.nav-toggle { display: none; flex-direction: column; gap: 5px; width: 26px; }
+.nav-toggle span { height: 2px; background: #F6F4EF; border-radius: 2px; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: fixed; top: 80px; left: 0; right: 0;
+    background: #0E1B2C;
+    flex-direction: column; align-items: flex-start; gap: 0;
+    padding: 0 2rem;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    border-bottom: 1px solid rgba(246, 244, 239, 0.16);
+  }
+  .nav-links.open { max-height: 420px; padding: 1.2rem 2rem 1.8rem; }
+  .nav-links a { width: 100%; padding: 0.7rem 0; }
+  .nav-cta .btn-ghost { display: none; }
+}
+
+/* ---------- 6. Page hero banner ---------- */
+/* Every hero has a background <img> with a dark overlay on top so the
+   white text stays readable no matter what photo is used. */
+.page-hero {
+  position: relative;
+  color: #F6F4EF;
+  padding: 6rem 0 4.5rem;
+  overflow: hidden;
+  background: #0E1B2C; /* shows while the image loads, or if it's missing */
+}
+
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+ background: linear-gradient(180deg, rgba(14,27,44,0.55), rgba(14,27,44,0.45));
+  z-index: 1;
+}
+
+.page-hero .wrap { position: relative; z-index: 2; }
+.page-hero h1 { color: #F6F4EF; max-width: 780px; }
+.page-hero p.lead { color: rgba(246,244,239,0.75); max-width: 620px; font-size: 1.1rem; margin-top: 1.2rem; }
+
+.breadcrumb {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #C9A227;
+  margin-bottom: 1.4rem;
+}
+
+/* ---------- 7. Scoreboard stat strip ---------- */
+.scoreboard { background: #0E1B2C; border-top: 1px solid rgba(246, 244, 239, 0.16); border-bottom: 1px solid rgba(246, 244, 239, 0.16); }
+.scoreboard-strip { display: grid; grid-template-columns: repeat(4, 1fr); }
+.scoreboard-cell { padding: 2.2rem 1.5rem; text-align: center; border-right: 1px solid rgba(246, 244, 239, 0.16); }
+.scoreboard-cell:last-child { border-right: none; }
+.scoreboard-num { font-family: 'Courier New', Courier, monospace; font-size: clamp(2rem, 4vw, 2.8rem); color: #E4C55D; font-weight: 700; }
+.scoreboard-label { margin-top: 0.5rem; font-family: 'Courier New', Courier, monospace; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(246,244,239,0.55); }
+
+@media (max-width: 900px) {
+  .scoreboard-strip { grid-template-columns: repeat(2, 1fr); }
+  .scoreboard-cell:nth-child(2) { border-right: none; }
+}
+
+/* ---------- 8. Ticker ---------- */
+.ticker { background: #C9A227; color: #0E1B2C; overflow: hidden; white-space: nowrap; border-bottom: 1px solid rgba(14,27,44,0.15); }
+.ticker-track { display: inline-flex; gap: 3rem; padding: 0.6rem 0; animation: ticker 32s linear infinite; }
+.ticker-track span { font-family: 'Courier New', Courier, monospace; font-size: 0.78rem; font-weight: 700; display: inline-flex; align-items: center; gap: 0.6rem; }
+.ticker-track span::before { content: '\25CF'; font-size: 0.5rem; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ---------- 9. Cards ---------- */
+.card { background: #FFFFFF; border-radius: 10px; border: 1px solid rgba(14, 27, 44, 0.12); transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+.card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(14, 27, 44, 0.18); }
+
+/* Sport overview cards (home page) */
+.sport-card { position: relative; padding: 2.2rem 1.8rem; }
+.sport-card .icon-wrap {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: #EAE6DB;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.4rem;
+}
+/* Put a small icon image (e.g. images/icons/cricket.png) inside .icon-wrap */
+.sport-card .icon-wrap img { width: 30px; height: 30px; object-fit: contain; }
+.sport-card h3 { margin-bottom: 0.5rem; }
+.sport-card p { font-size: 0.92rem; margin-bottom: 1.2rem; }
+.sport-card .tag-line { font-family: 'Courier New', Courier, monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: #C9A227; }
+.sport-card a.card-link { font-weight: 700; font-size: 0.88rem; }
+
+/* Person cards (coaches / players) */
+.person-card { padding: 0; overflow: hidden; background: #FFFFFF; }
+.person-photo { aspect-ratio: 4 / 3; background: #EAE6DB; overflow: hidden; }
+/* Put a photo here, e.g. images/coaches/coach-name.jpg */
+.person-photo img { width: 100%; height: 100%; object-fit: cover; }
+.person-info { padding: 1.3rem 1.4rem 1.5rem; }
+.person-info .role { font-family: 'Courier New', Courier, monospace; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #C9A227; margin-bottom: 0.35rem; display: block; }
+.person-info h4 { margin-bottom: 0.2rem; }
+.person-info p { font-size: 0.85rem; margin: 0; }
+
+/* ---------- 10. Stat tables ---------- */
+.stat-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.stat-table th, .stat-table td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid rgba(14, 27, 44, 0.12); }
+.stat-table th { font-family: 'Courier New', Courier, monospace; font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(14, 27, 44, 0.45); font-weight: 700; }
+.stat-table td.num, .stat-table th.num { font-family: 'Courier New', Courier, monospace; text-align: right; }
+.stat-table tr:hover td { background: #EAE6DB; }
+.table-scroll { overflow-x: auto; border-radius: 10px; border: 1px solid rgba(14, 27, 44, 0.12); }
+.table-scroll .stat-table { min-width: 640px; }
+
+/* ---------- 11. Tabs & filters ---------- */
+.tab-bar { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.6rem; }
+.tab-btn { padding: 0.65rem 1.3rem; border-radius: 999px; border: 1px solid rgba(14, 27, 44, 0.12); font-size: 0.86rem; font-weight: 700; color: rgba(14, 27, 44, 0.72); transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.tab-btn:hover { border-color: #C9A227; color: #0E1B2C; }
+.tab-btn.active { background: #0E1B2C; border-color: #0E1B2C; color: #F6F4EF; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ---------- 12. Fixture / match cards ---------- */
+.fixture-card { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 1.4rem; padding: 1.4rem 1.6rem; background: #FFFFFF; }
+.fixture-date { text-align: center; font-family: 'Courier New', Courier, monospace; border-right: 1px solid rgba(14, 27, 44, 0.12); padding-right: 1.2rem; }
+.fixture-date .day { font-size: 1.6rem; color: #0E1B2C; font-weight: 700; line-height: 1; }
+.fixture-date .mon { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(14, 27, 44, 0.45); margin-top: 4px; }
+.fixture-main .sport-tag { font-family: 'Courier New', Courier, monospace; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: #2F5D3A; background: rgba(47,93,58,0.1); padding: 0.2rem 0.6rem; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem; }
+.fixture-main h4 { margin-bottom: 0.25rem; }
+.fixture-main .meta { font-size: 0.82rem; color: rgba(14, 27, 44, 0.45); }
+.fixture-status { font-family: 'Courier New', Courier, monospace; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.5rem 1rem; border-radius: 999px; white-space: nowrap; }
+.status-upcoming { background: rgba(201,162,39,0.14); color: #8a6a12; }
+.status-completed { background: rgba(47,93,58,0.12); color: #2F5D3A; }
+
+@media (max-width: 640px) {
+  .fixture-card { grid-template-columns: 60px 1fr; }
+  .fixture-status { grid-column: 1 / -1; justify-self: start; }
+}
+
+/* ---------- 13. News ---------- */
+.news-card { padding: 1.8rem; }
+.news-card .date { font-family: 'Courier New', Courier, monospace; font-size: 0.7rem; color: rgba(14, 27, 44, 0.45); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 0.7rem; display: block; }
+.news-card h4 { margin-bottom: 0.6rem; }
+.news-card p { font-size: 0.9rem; }
+
+/* Achievement cards reuse the small sport icon images */
+.achieve-card { padding: 2rem 1.6rem; text-align: center; }
+.achieve-card img { width: 38px; height: 38px; object-fit: contain; margin: 0 auto 1rem; }
+.achieve-card .yr { font-family: 'Courier New', Courier, monospace; font-size: 0.72rem; color: rgba(14, 27, 44, 0.45); letter-spacing: 0.08em; }
+.achieve-card h4 { margin: 0.4rem 0; }
+
+/* Value / facility blocks */
+.value-card { padding: 2rem 1.7rem; }
+.value-card .idx { font-family: 'Courier New', Courier, monospace; color: #C9A227; font-size: 0.85rem; margin-bottom: 1rem; display: block; }
+
+.facility-card { overflow: hidden; }
+.facility-visual { height: 170px; overflow: hidden; background: #EAE6DB; }
+.facility-visual img { width: 100%; height: 100%; object-fit: cover; }
+.facility-card .body { padding: 1.5rem 1.6rem 1.7rem; }
+
+/* ---------- 14. Gallery ---------- */
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; }
+.gallery-item { aspect-ratio: 1; border-radius: 4px; overflow: hidden; position: relative; background: #EAE6DB; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-item .cap {
+  position: absolute; inset: auto 0 0 0;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(0deg, rgba(14,27,44,0.85), transparent);
+  color: #F6F4EF;
+  font-size: 0.76rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+@media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* ---------- 15. Forms ---------- */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.3rem; }
+.field { display: flex; flex-direction: column; gap: 0.5rem; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-size: 0.82rem; font-weight: 700; }
+.field .req { color: #A62639; }
+.field input, .field select, .field textarea {
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(14, 27, 44, 0.12);
+  border-radius: 4px;
+  background: #FFFFFF;
+  font-size: 0.94rem;
+  transition: border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.field input:focus, .field select:focus, .field textarea:focus {
+  border-color: #C9A227;
+  box-shadow: 0 0 0 3px rgba(201,162,39,0.16);
+  outline: none;
+}
+.field textarea { resize: vertical; min-height: 110px; }
+.field .error-msg { font-size: 0.78rem; color: #A62639; min-height: 1rem; display: none; }
+.field.has-error input, .field.has-error select, .field.has-error textarea { border-color: #A62639; }
+.field.has-error .error-msg { display: block; }
+
+.form-note { font-size: 0.82rem; color: rgba(14, 27, 44, 0.45); margin-top: 1rem; }
+.form-success {
+  display: none; margin-top: 1.4rem; padding: 1rem 1.3rem;
+  background: rgba(47,93,58,0.1); border: 1px solid rgba(47,93,58,0.3);
+  color: #2F5D3A; border-radius: 4px; font-size: 0.9rem; font-weight: 700;
+}
+.form-success.show { display: block; }
+
+@media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+/* ---------- 16. Membership plans ---------- */
+.plan-card { padding: 2.4rem 2rem; position: relative; }
+.plan-card.featured { border: 1px solid #C9A227; box-shadow: 0 12px 32px rgba(14, 27, 44, 0.10); }
+.plan-card .badge {
+  position: absolute; top: -13px; left: 2rem;
+  background: #C9A227; color: #0E1B2C;
+  font-family: 'Courier New', Courier, monospace; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.35rem 0.8rem; border-radius: 999px; font-weight: 700;
+}
+.plan-card .price { font-family: Georgia, 'Times New Roman', serif; font-size: 2.4rem; margin: 1rem 0 0.2rem; }
+.plan-card .price span { font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; color: rgba(14, 27, 44, 0.45); }
+.plan-card ul { margin: 1.6rem 0 1.8rem; display: flex; flex-direction: column; gap: 0.7rem; }
+.plan-card li { font-size: 0.9rem; display: flex; align-items: flex-start; gap: 0.6rem; }
+.plan-card li::before { content: '\2713'; color: #2F5D3A; font-weight: 700; }
+
+/* ---------- 17. Payment popup + receipt ---------- */
+/* This is the pop-up box that appears after "Submit Application" is
+   clicked. It sits on top of the page, centred, with a dark see-through
+   layer behind it so the page content is still visible but not clickable. */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(14, 27, 44, 0.75);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.modal-overlay.show { display: flex; }
+
+.modal-box {
+  background: #FFFFFF;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2.2rem;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem; right: 1.2rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: rgba(14, 27, 44, 0.45);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.modal-close:hover { color: #0E1B2C; }
+
+.modal-box h3 { margin-bottom: 0.3rem; }
+
+.modal-amount {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #0E1B2C;
+  margin: 0.6rem 0 1.5rem;
+}
+.modal-amount span { font-size: 0.8rem; color: rgba(14, 27, 44, 0.45); font-weight: 400; }
+
+/* Payment method tabs: UPI / Card / Net Banking */
+.pay-method-tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.pay-method-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid rgba(14, 27, 44, 0.12);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: rgba(14, 27, 44, 0.72);
+}
+.pay-method-btn.active { background: #0E1B2C; border-color: #0E1B2C; color: #F6F4EF; }
+
+.pay-method-panel { display: none; }
+.pay-method-panel.active { display: block; }
+.pay-method-panel .field { margin-bottom: 1.1rem; }
+
+.payment-note { font-size: 0.8rem; color: rgba(14, 27, 44, 0.45); margin-top: 1rem; }
+
+/* Receipt shown after a successful (simulated) payment */
+.receipt-box {
+  border: 1px dashed rgba(14, 27, 44, 0.3);
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin: 1.2rem 0 1.6rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.86rem;
+  background: #F6F4EF;
+}
+.receipt-box .receipt-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed rgba(14, 27, 44, 0.12);
+}
+.receipt-box .receipt-row:last-child { border-bottom: none; }
+.receipt-box .receipt-label { color: rgba(14, 27, 44, 0.45); }
+.receipt-box .receipt-value { font-weight: 700; text-align: right; }
+.receipt-box .receipt-total {
+  margin-top: 0.6rem;
+  padding-top: 0.8rem;
+  border-top: 2px solid #0E1B2C;
+  font-size: 1rem;
+}
+
+/* ---------- 18. Contact section ---------- */
+.contact-item { display: flex; gap: 1rem; align-items: flex-start; padding: 1.4rem 0; border-bottom: 1px solid rgba(246, 244, 239, 0.16); }
+.contact-item img { width: 22px; height: 22px; object-fit: contain; flex-shrink: 0; margin-top: 2px; }
+.contact-item h4 { color: #F6F4EF; font-size: 0.95rem; margin-bottom: 0.2rem; }
+.contact-item p { color: rgba(246,244,239,0.62); font-size: 0.88rem; }
+
+.social-row { display: flex; gap: 0.8rem; margin-top: 1.8rem; }
+.social-row a {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid rgba(246, 244, 239, 0.16);
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.social-row a img { width: 18px; height: 18px; object-fit: contain; }
+.social-row a:hover { background: #C9A227; border-color: #C9A227; }
+
+/* ---------- 19. Footer (short, on-brand) ---------- */
+.site-footer { background: #0E1B2C; color: #F6F4EF; padding: 3rem 0 1.6rem; border-top: 3px solid #C9A227; }
+.footer-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.8rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(246, 244, 239, 0.16); }
+.footer-brand { display: flex; align-items: center; gap: 0.7rem; }
+.footer-brand .brand-text { color: #F6F4EF; }
+.footer-tagline { font-family: 'Courier New', Courier, monospace; font-size: 0.74rem; letter-spacing: 0.06em; color: rgba(246,244,239,0.55); margin-top: 0.3rem; }
+.footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer-links a { font-size: 0.88rem; color: rgba(246,244,239,0.72); }
+.footer-links a:hover { color: #C9A227; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1.6rem; font-size: 0.78rem; color: rgba(246,244,239,0.45); }
+.footer-bottom .social-row { margin-top: 0; }
+.footer-bottom .social-row a { width: 34px; height: 34px; }
+.footer-bottom .social-row a img { width: 15px; height: 15px; }
+
+@media (max-width: 640px) {
+  .footer-top, .footer-bottom { flex-direction: column; align-items: flex-start; }
+}
+
+
+/* ============================================================
+   FOUNDER SECTION
+   ============================================================ */
+
+.founder-section {
+  padding: 6rem 0;
+  background: #F6F4EF;
+}
+
+.founder-content {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* ---------- Founder Image ---------- */
+
+.founder-image-wrap {
+  position: relative;
+  max-width: 480px;
+}
+
+css
+.founder-image {
+  width: 100%;
+  height: 570px;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(8%);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.founder-image-wrap:hover .founder-image {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 48px rgba(14, 27, 44, 0.18);
+}
+
+/* Gold frame behind image */
+
+.founder-image-wrap::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #C9A227;
+  top: 14px;
+  left: 14px;
+  z-index: 0;
+}
+
+.founder-image {
+  position: relative;
+  z-index: 1;
+}
+
+/* Image label */
+
+.founder-image-label {
+  position: absolute;
+  bottom: 22px;
+  left: 22px;
+  z-index: 2;
+
+  background: #0E1B2C;
+  padding: 0.9rem 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+
+  border-left: 3px solid #C9A227;
+}
+
+.founder-image-label span {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: #C9A227;
+  text-transform: uppercase;
+}
+
+.founder-image-label strong {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: #F6F4EF;
+}
+
+/* ---------- Founder Text ---------- */
+
+.founder-text {
+  max-width: 620px;
+}
+
+.founder-text h2 {
+  margin-top: 0.8rem;
+  margin-bottom: 1.5rem;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.founder-text h2 span {
+  color: #2F5D3A;
+}
+
+.founder-intro {
+  font-size: 1.08rem;
+  line-height: 1.8;
+  color: #0E1B2C;
+  margin-bottom: 1rem;
+}
+
+.founder-text > p {
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Founder Quote ---------- */
+
+.founder-quote {
+  position: relative;
+  margin: 2rem 0;
+  padding: 1.5rem 1.5rem 1.5rem 3.2rem;
+
+  background: #0E1B2C;
+  border-left: 4px solid #C9A227;
+}
+
+.founder-quote p {
+  color: rgba(246, 244, 239, 0.82);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.quote-mark {
+  position: absolute;
+  top: 0.45rem;
+  left: 1rem;
+
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 3rem;
+  line-height: 1;
+  color: #C9A227;
+}
+
+/* ---------- Founder Signature ---------- */
+
+.founder-signature {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+
+  padding-top: 1rem;
+  border-top: 1px solid rgba(14, 27, 44, 0.15);
+}
+
+.founder-signature strong {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.15rem;
+  color: #0E1B2C;
+}
+
+.founder-signature span {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #2F5D3A;
+}
+
+
+/* ============================================================
+   FOUNDER SECTION — RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  .founder-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .founder-image-wrap {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .founder-text {
+    max-width: 100%;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .founder-section {
+    padding: 4rem 0;
+  }
+
+  .founder-image {
+    height: 450px;
+  }
+
+  .founder-image-wrap::before {
+    top: 8px;
+    left: 8px;
+  }
+
+  .founder-image-label {
+    bottom: 14px;
+    left: 14px;
+  }
+
+  .founder-quote {
+    padding-left: 2.8rem;
+  }
+
+}
